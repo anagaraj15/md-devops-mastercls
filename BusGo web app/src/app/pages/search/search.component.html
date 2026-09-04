@@ -1,0 +1,83 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-xl-10">
+      <div class="mb-4">
+        <span class="badge text-bg-primary mb-2">Plan your journey</span>
+        <h1 class="fw-bold">Where do you want to go?</h1>
+        <p class="text-muted">Search buses by route and travel date.</p>
+      </div>
+
+      <div class="card search-card">
+        <div class="card-body p-4 p-md-5">
+          <form [formGroup]="form" (ngSubmit)="submit()">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label fw-semibold">From</label>
+                <select class="form-select" formControlName="source">
+                  <option value="">Select source</option>
+                  <option>Bengaluru</option>
+                  <option>Ballari</option>
+                  <option>Hyderabad</option>
+                  <option>Chennai</option>
+                  <option>Mumbai</option>
+                  <option>Pune</option>
+                </select>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label fw-semibold">To</label>
+                <select class="form-select" formControlName="destination">
+                  <option value="">Select destination</option>
+                  <option>Bengaluru</option>
+                  <option>Ballari</option>
+                  <option>Hyderabad</option>
+                  <option>Chennai</option>
+                  <option>Mumbai</option>
+                  <option>Pune</option>
+                </select>
+                <div class="text-danger small mt-1" *ngIf="form.controls.destination.errors?.['same']">
+                  Source and destination cannot be the same.
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label fw-semibold">Travel date</label>
+                <input type="date" class="form-control" [min]="minDate" formControlName="date">
+              </div>
+
+              <div class="col-12 mt-4">
+                <button class="btn btn-primary btn-lg w-100 fw-semibold" type="submit">
+                  🔎 Book Tickets
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-4">
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100">
+            <div class="fs-3 mb-2">🚌</div>
+            <h6 class="fw-bold">Multiple buses</h6>
+            <p class="text-muted small mb-0">Compare timings, operators and fares.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100">
+            <div class="fs-3 mb-2">💺</div>
+            <h6 class="fw-bold">Choose your seat</h6>
+            <p class="text-muted small mb-0">Select available seats before payment.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bg-white rounded-4 p-4 h-100">
+            <div class="fs-3 mb-2">🎫</div>
+            <h6 class="fw-bold">Instant ticket</h6>
+            <p class="text-muted small mb-0">Get your booking details after payment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
