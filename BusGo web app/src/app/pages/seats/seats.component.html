@@ -1,0 +1,74 @@
+<div class="container py-4">
+  <div class="mb-4">
+    <button class="btn btn-sm btn-outline-secondary mb-2" routerLink="/buses">← Back to buses</button>
+    <h2 class="fw-bold mb-1">Select your seats</h2>
+    <p class="text-muted mb-0">{{ bus?.operator }} · {{ search?.source }} → {{ search?.destination }}</p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="seat-layout">
+        <div class="bus-front">🚍 Driver / Front</div>
+
+        <div class="seat-grid">
+          <ng-container *ngFor="let seat of seats; let i = index">
+            <button
+              class="seat"
+              [class.selected]="isSelected(seat.number)"
+              [class.booked]="seat.booked"
+              [disabled]="seat.booked"
+              (click)="toggleSeat(seat)">
+              {{ seat.number }}
+            </button>
+          </ng-container>
+        </div>
+
+        <div class="d-flex justify-content-center gap-4 mt-4 small text-muted">
+          <span><span class="d-inline-block rounded me-1" style="width:14px;height:14px;border:2px solid #cbd5e1;"></span>Available</span>
+          <span><span class="d-inline-block rounded me-1 bg-primary" style="width:14px;height:14px;"></span>Selected</span>
+          <span><span class="d-inline-block rounded me-1 bg-secondary-subtle" style="width:14px;height:14px;"></span>Booked</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="card summary-card">
+        <div class="card-body p-4">
+          <h5 class="fw-bold">Booking summary</h5>
+          <hr>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Bus</span>
+            <span class="fw-semibold">{{ bus?.operator }}</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Journey</span>
+            <span class="fw-semibold">{{ search?.source }} → {{ search?.destination }}</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Seats</span>
+            <span class="fw-semibold">{{ selectedSeats.length ? selectedSeats.join(', ') : 'None' }}</span>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="fw-semibold">Total</span>
+            <span class="fs-4 fw-bold">₹{{ total() }}</span>
+          </div>
+
+          <button
+            class="btn btn-primary w-100 py-2"
+            [disabled]="!selectedSeats.length"
+            (click)="continueToPayment()">
+            Continue to payment
+          </button>
+
+          <div class="text-muted small mt-2 text-center">
+            Select up to 6 seats
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
