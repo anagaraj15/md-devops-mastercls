@@ -1,0 +1,73 @@
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <div class="success-circle">✓</div>
+    <h1 class="fw-bold">Congratulations! 🎉</h1>
+    <p class="text-muted">Your bus ticket has been booked successfully.</p>
+  </div>
+
+  <div class="card ticket mx-auto">
+    <div class="ticket-header p-4">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <div class="small opacity-75">BUSGO TICKET</div>
+          <h3 class="fw-bold mb-0">{{ booking?.bus?.operator }}</h3>
+        </div>
+        <div class="text-end">
+          <div class="small opacity-75">Booking ID</div>
+          <div class="fw-bold">{{ booking?.bookingId }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body p-4">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <small class="text-muted d-block">PASSENGER</small>
+          <strong>{{ booking?.passengerName }}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">EMAIL</small>
+          <strong>{{ booking?.email }}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">FROM</small>
+          <strong>{{ booking?.source }}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">TO</small>
+          <strong>{{ booking?.destination }}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">TRAVEL DATE</small>
+          <strong>{{ booking?.date | date:'dd MMM yyyy' }}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">TIME</small>
+          <strong>{{ booking?.bus?.departure }} - {{ booking?.bus?.arrival }}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">SEATS</small>
+          <strong>{{ booking?.seats?.join(', ') }}</strong>
+        </div>
+        <div class="col-md-6">
+          <small class="text-muted d-block">PAYMENT</small>
+          <strong>{{ booking?.paymentMethod }}</strong>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="fw-semibold">Total paid</span>
+        <span class="fs-3 fw-bold text-primary">₹{{ booking?.total }}</span>
+      </div>
+    </div>
+
+    <div class="card-footer bg-light border-0 p-4">
+      <div class="text-muted small mb-3">
+        Please keep your booking ID for reference. This is a demo application, so this ticket has no real travel validity.
+      </div>
+      <button class="btn btn-primary w-100" (click)="bookAnother()">Book another ticket</button>
+    </div>
+  </div>
+</div>
