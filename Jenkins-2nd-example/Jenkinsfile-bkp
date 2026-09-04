@@ -1,0 +1,33 @@
+pipeline{
+  Agent any
+  stages{
+    stage('uptime'){
+      steps{
+        sh '''
+          uptime
+        '''
+      }
+    }
+    stage('Ram-Used'){
+      steps{
+        sh '''
+          free -h
+        '''
+      }
+    }
+    stage('disk-file'){
+      steps{
+        sh '''
+          df -kh
+        '''
+      }
+    }
+    stage('poll-scm-checkin'){
+           steps{
+             sh '''
+                echo "checking wheather poll scm works or not"
+             '''
+           } 
+        }   
+  }
+}

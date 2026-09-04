@@ -1,26 +1,34 @@
 pipeline{
-  Agent any
-  stages{
-    stage('uptime'){
-      steps{
-        sh '''
-          uptime
-        '''
-      }
+    agent any
+    stages{
+        stage('uptime'){
+           steps{
+             sh '''
+                uptime
+             '''
+           } 
+        }
+        stage('Ram-Used'){
+           steps{
+             sh '''
+                free -h
+             '''
+           } 
+        }
+        stage('disk-file'){
+           steps{
+             sh '''
+                df -kh
+             '''
+           } 
+        }  
+        stage('disk-usage'){
+           steps{
+             sh '''
+                du -sch .
+             '''
+           } 
+        }   
+                   
     }
-    stage('Ram-Used'){
-      steps{
-        sh '''
-          free -h
-        '''
-      }
-    }
-    stage('disk-file'){
-      steps{
-        sh '''
-          df -kh
-        '''
-      }
-    }
-  }
 }
