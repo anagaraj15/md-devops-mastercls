@@ -22,13 +22,7 @@ pipeline{
              '''
            } 
         }  
-        stage('disk-usage'){
-           steps{
-             sh '''
-                du -sch .
-             '''
-           } 
-        }   
+        
                    
     }
 }
