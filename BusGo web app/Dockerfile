@@ -6,8 +6,8 @@ WORKDIR /app
 # Copy package files and install dependencies
 COPY package*.json ./
 
-# Change this line in your Dockerfile:
-RUN npm ci --progress=true --loglevel=info
+# Fix: Use --no-audit and --no-fund to lower RAM usage during install
+RUN npm ci --no-audit --no-fund
 
 # Copy the rest of the application code
 COPY . .
