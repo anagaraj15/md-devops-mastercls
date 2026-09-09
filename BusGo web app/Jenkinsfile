@@ -1,0 +1,17 @@
+pipeline{
+  agent any
+  stages{
+    stage('Git-Checkout'){
+      steps{
+        git url:"https://github.com/anagaraj15/md-devops-mastercls.git",branch:"main"
+      }
+    }
+    stage('Build'){
+      steps{
+        sh '''
+          printenv
+        '''
+      }
+    }
+  }
+}
