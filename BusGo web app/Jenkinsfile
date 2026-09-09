@@ -22,7 +22,8 @@ pipeline{
     stage('testing the image'){
       steps{
         sh '''
-          
+          docker kill c8
+          docker rm c8
           docker run -it -d --name c8 -p 9003:8501 ${IMAGE_NAME}
         '''
       }

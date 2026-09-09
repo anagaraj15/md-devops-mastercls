@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Open port 4200 (the default Angular development port)
-EXPOSE 4200
+EXPOSE 80
 
 # Start the Angular development server publicly so you can access it externally
 CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
