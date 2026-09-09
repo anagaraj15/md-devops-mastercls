@@ -5,7 +5,9 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm ci
+
+# Change this line in your Dockerfile:
+RUN npm ci --progress=true --loglevel=info
 
 # Copy the rest of the application code
 COPY . .
