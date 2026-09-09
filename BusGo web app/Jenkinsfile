@@ -1,5 +1,8 @@
 pipeline{
   agent any
+  environment {
+    IMAGE_NAME = 'anagaraj15/md-devops-mastercls:${GIT_COMMIT}'
+  }
   stages{
     stage('Git-Checkout'){
       steps{
@@ -10,6 +13,8 @@ pipeline{
       steps{
         sh '''
           printenv
+          cd /BusGo web app
+          docker build -t ${IMAGE_NAME} .
         '''
       }
     }
