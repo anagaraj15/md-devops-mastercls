@@ -1,7 +1,7 @@
 pipeline{
   agent any
   environment {
-    IMAGE_NAME = 'anagaraj15/md-devops-mastercls:${GIT_COMMIT}'
+    IMAGE_NAME = "anagaraj15/md-devops-mastercls:${GIT_COMMIT}"
   }
   stages{
     stage('Git-Checkout'){
