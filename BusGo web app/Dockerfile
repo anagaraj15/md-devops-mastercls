@@ -1,33 +1,20 @@
-# --- STAGE 1: Build the Angular Application ---
-FROM node:20-alpine AS build
+# Use a lightweight Node.js base image
+FROM node:20-alpine
 
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package files first to leverage Docker caching
 COPY package*.json ./
 
-# Fix: Use --no-audit and --no-fund to lower RAM usage during install
-RUN npm ci --no-audit --no-fund
+# Install project dependencies
+RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of your Angular application code
 COPY . .
 
-# Build the application for production
-#RUN npm run build -- --configuration=production
+# Open port 4200 (the default Angular development port)
+EXPOSE 4200
 
-# Fix: Restrict Node max memory allocation to 512MB or 1GB during compilation
-ENV NODE_OPTIONS="--max-old-space-size=512"
-RUN npm run build -- --configuration=production
-
-# --- STAGE 2: Serve the application using NGINX ---
-FROM nginx:alpine
-
-# Copy the build output from Stage 1 to NGINX HTML directory
-# Note: Replace "my-angular-app" with the actual project name found in your angular.json file
-COPY --from=build /app/dist/bus-seat-booking/browser /usr/share/nginx/html
-
-# Expose port 80 for the web server
-EXPOSE 80
-
-# Start NGINX
-CMD ["nginx", "-g", "daemon off;"]#
+# Start the Angular development server publicly so you can access it externally
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]
