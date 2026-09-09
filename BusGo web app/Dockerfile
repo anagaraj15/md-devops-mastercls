@@ -13,6 +13,10 @@ RUN npm ci --no-audit --no-fund
 COPY . .
 
 # Build the application for production
+#RUN npm run build -- --configuration=production
+
+# Fix: Restrict Node max memory allocation to 512MB or 1GB during compilation
+ENV NODE_OPTIONS="--max-old-space-size=512"
 RUN npm run build -- --configuration=production
 
 # --- STAGE 2: Serve the application using NGINX ---
@@ -26,4 +30,4 @@ COPY --from=build /app/dist/bus-seat-booking/browser /usr/share/nginx/html
 EXPOSE 80
 
 # Start NGINX
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]#
