@@ -41,10 +41,17 @@ pipeline{
     }
     stage('pushing to registry'){
       steps{
-        sh '''
-          echo "$DOCKER_CREDS_PSW" | docker login -u "$DOCKER_CREDS_USR" --password-stdin
-          docker push ${IMAGE_NAME}
-        '''
+         withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+          // some block
+          sh '''
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push ${IMAGE_NAME}
+          '''
+        }
+        // sh '''
+        //   echo "$DOCKER_CREDS_PSW" | docker login -u "$DOCKER_CREDS_USR" --password-stdin
+        //   docker push ${IMAGE_NAME}
+        // '''
       }
     }
   }
