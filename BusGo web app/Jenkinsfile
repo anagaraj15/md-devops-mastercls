@@ -44,13 +44,17 @@ pipeline{
           // some block
           sh '''
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push ${IMAGE_NAME}
+            
+            # 2. Re-tag the existing image to use the correct registry namespace
+            # From: anagaraj15/md-devops-mastercls:d9a30b...
+            # To:   anagaraj05/md-devops-mastercls:d9a30b...
+            docker tag anagaraj15/md-devops-mastercls:${GIT_COMMIT} ${DOCKER_USERNAME}/md-devops-mastercls:${GIT_COMMIT}
+            
+            # 3. Push the corrected tag
+            docker push ${DOCKER_USERNAME}/md-devops-mastercls:${GIT_COMMIT}
           '''
         }
-        // sh '''
-        //   echo "$DOCKER_CREDS_PSW" | docker login -u "$DOCKER_CREDS_USR" --password-stdin
-        //   docker push ${IMAGE_NAME}
-        // '''
+        
       }
     }
   }
